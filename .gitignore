@@ -1,0 +1,8 @@
+.DS_Store
+nxhb.lst
+nxhb.elf
+nxhb.nacp
+nxhb.nro
+build/main.o
+build/main.d
+build/nxhb.map

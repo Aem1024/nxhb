@@ -18,6 +18,8 @@ int main(int argc, char* argv[])
     // Initialize the default gamepad (which reads handheld mode inputs as well as the first connected controller)
     PadState pad;
     padInitializeDefault(&pad);
+    padUpdate(&pad);
+    u64 kDown = padGetButtonsDown(&pad);
     //TODO: Refactor to struct
     // X at last frame and Y at last frame
     int movsafe = 1;
@@ -98,28 +100,28 @@ int main(int argc, char* argv[])
                         break;
                     case 4 :
                         // left-right
-                            printf("\x1b[37;42m");
-                            printf("\x1b[%d;%dH%c", i, j, 205);
-                            printf("\x1b[0m");
-                            break;
+                        printf("\x1b[37;42m");
+                        printf("\x1b[%d;%dH%c", i, j, 205);
+                        printf("\x1b[0m");
+                        break;
                     case 5 :
                         // bottom-top
-                            printf("\x1b[37;42m");
-                            printf("\x1b[%d;%dH%c", i, j, 186);
-                            printf("\x1b[0m");
-                            break;
+                        printf("\x1b[37;42m");
+                        printf("\x1b[%d;%dH%c", i, j, 186);
+                        printf("\x1b[0m");
+                        break;
                     case 6 :
                         // left-top
-                            printf("\x1b[37;42m");
-                            printf("\x1b[%d;%dH%c", i, j, 188);
-                            printf("\x1b[0m");
-                            break;
+                        printf("\x1b[37;42m");
+                        printf("\x1b[%d;%dH%c", i, j, 188);
+                        printf("\x1b[0m");
+                        break;
                     case 7 : 
-                            // bottom - left
-                            printf("\x1b[37;42m");
-                            printf("\x1b[%d;%dH%c", i, j, 187);
-                            printf("\x1b[0m");
-                            break;
+                        // bottom - left
+                        printf("\x1b[37;42m");
+                        printf("\x1b[%d;%dH%c", i, j, 187);
+                        printf("\x1b[0m");
+                        break;
                     
                 }
             }
