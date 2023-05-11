@@ -43,9 +43,7 @@ SOURCES		:=	source
 DATA		:=	data
 INCLUDES	:=	include
 #ROMFS	:=	romfs
-APP_TITLE = "totk real"
-APP_AUTHOR = "ur mom"
-APP_VERSION = 1.0.0
+
 #---------------------------------------------------------------------------------
 # options for code generation
 #---------------------------------------------------------------------------------

@@ -1,11 +1,8 @@
-// zelda4life
 // Include the most common headers from the C standard library
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-// For sleep()
 #include <unistd.h>
-// Include the main libnx system header, for Switch development
 #include <switch.h>
 // Macros for console window size
 #define COLUMNS 20
@@ -21,20 +18,22 @@ int main(int argc, char* argv[])
     // Initialize the default gamepad (which reads handheld mode inputs as well as the first connected controller)
     PadState pad;
     padInitializeDefault(&pad);
+    //TODO: Refactor to struct
     // X at last frame and Y at last frame
     int movsafe = 1;
-    int x, y;
-    x = 1;
-    y = 1;
+    int x = 1;
+    int y = 1;
     int xlf, ylf;
     int i, j;
+    int enemyAlive = 1;
+
     // Fixes an issue that I don't want to bother fixing rn.
     int markx = 0;
     int marky = 0;
     int health = 3;
     int score = 0;
     // Map array
-    int map[ROWS][COLUMNS] = {
+    char map[ROWS][COLUMNS] = {
         {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}, //DO NOT WRITE TO THIS LINE IT IS OVERWRITTEN BY HEALTH/SCORE
         {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
         {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
@@ -68,9 +67,9 @@ int main(int argc, char* argv[])
             movsafe = 0;
             x = xlf;
             y = ylf;
-    }
+        }
         // Iterating over the array
-                for (j = 0; j < COLUMNS; j++) {
+        for (j = 0; j < COLUMNS; j++) {
             for (i = 0; i < ROWS; i++) {
                 switch (map[i][j]) {
                     case 0 :
@@ -153,9 +152,17 @@ int main(int argc, char* argv[])
         if (kDown & HidNpadButton_A) {
             score++;
         }
+        if (kDown & HidNpadButton_B) {
+            health = health - 1;
+        }
         printf("\x1b[37;42m");
         printf("\x1b[%d;%dH%c", y, x, 2);
         printf("\x1b[0m");
+        if (enemyAlive == 1) {
+            printf("\x1b[31;42m");
+            printf("\x1b[%d;%dH%c", 10, 10, 2);
+            printf("\x1b[0m");
+        }
         if (marky != y || markx != x) {
             printf("\x1b[%d;%dH", marky, markx); 
         }
@@ -164,6 +171,11 @@ int main(int argc, char* argv[])
         }
         printf("HEALTH %c %d ", 3, health);
         printf("SCORE  %d\n", score);
+        while (health <= 0) {
+            consoleClear();
+            printf("Game Over!");
+            consoleUpdate(NULL);
+        }
         //updates and clears the console 
         consoleUpdate(NULL);
         consoleClear();
