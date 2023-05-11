@@ -7,6 +7,12 @@
 // Macros for console window size
 #define COLUMNS 20
 #define ROWS 20
+// Enemy Structure
+struct enemy {
+        int enemyX;
+        int enemyY;
+        int enemyAlive;
+};
 // Main program entrypoint
 int main(int argc, char* argv[])
 {
@@ -14,6 +20,8 @@ int main(int argc, char* argv[])
     consoleInit(NULL);
     // Configure our supported input layout: a single player with standard controller styles
     padConfigureInput(1, HidNpadStyleSet_NpadStandard);
+
+    struct enemy en;
 
     // Initialize the default gamepad (which reads handheld mode inputs as well as the first connected controller)
     PadState pad;
@@ -27,8 +35,6 @@ int main(int argc, char* argv[])
     int y = 1;
     int xlf, ylf;
     int i, j;
-    int enemyAlive = 1;
-
     // Fixes an issue that I don't want to bother fixing rn.
     int markx = 0;
     int marky = 0;
@@ -39,11 +45,11 @@ int main(int argc, char* argv[])
         {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}, //DO NOT WRITE TO THIS LINE IT IS OVERWRITTEN BY HEALTH/SCORE
         {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
         {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-        {0,0,0,0,0,0,0,0,0,0,0,0,2,4,7,0,0,0,0,0},
-        {0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,0,0,0,0,0},
-        {0,0,0,0,0,0,0,0,0,0,0,0,3,4,6,0,0,0,0,0},
-        {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-        {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+        {0,0,0,0,0,0,0,0,0,0,0,0,2,4,4,4,7,0,0,0},
+        {0,0,0,0,0,0,0,0,0,0,0,0,5,0,0,0,5,0,0,0},
+        {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,0,0,0},
+        {0,0,0,0,0,0,0,0,0,0,0,0,5,0,0,0,5,0,0,0},
+        {0,0,0,0,0,0,0,0,0,0,0,0,3,4,4,4,6,0,0,0},
         {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
         {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
         {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
@@ -62,6 +68,9 @@ int main(int argc, char* argv[])
     {
         xlf = x;
         ylf = y;
+        en.enemyAlive = 1;
+        en.enemyX = 10;
+        en.enemyY = 10;
         // Checks if moving is safe
         movsafe = 1;
 
@@ -160,9 +169,9 @@ int main(int argc, char* argv[])
         printf("\x1b[37;42m");
         printf("\x1b[%d;%dH%c", y, x, 2);
         printf("\x1b[0m");
-        if (enemyAlive == 1) {
+        if (en.enemyAlive == 1) {
             printf("\x1b[31;42m");
-            printf("\x1b[%d;%dH%c", 10, 10, 2);
+            printf("\x1b[%d;%dH%c", en.enemyY, en.enemyX, 2);
             printf("\x1b[0m");
         }
         if (marky != y || markx != x) {
