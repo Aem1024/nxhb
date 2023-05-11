@@ -35,9 +35,7 @@ int main(int argc, char* argv[])
     int y = 1;
     int xlf, ylf;
     int i, j;
-    // Fixes an issue that I don't want to bother fixing rn.
-    int markx = 0;
-    int marky = 0;
+    // Health and Score (Obviously)
     int health = 3;
     int score = 0;
     // Map array
@@ -174,13 +172,10 @@ int main(int argc, char* argv[])
             printf("\x1b[%d;%dH%c", en.enemyY, en.enemyX, 2);
             printf("\x1b[0m");
         }
-        if (marky != y || markx != x) {
-            printf("\x1b[%d;%dH", marky, markx); 
-        }
         if (kDown & HidNpadButton_Plus) {
             break;
         }
-        printf("HEALTH %c %d ", 3, health);
+        printf("\x1b[0;0HHEALTH %c %d ", 3, health);
         printf("SCORE  %d\n", score);
         while (health <= 0) {
             consoleClear();
