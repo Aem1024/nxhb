@@ -48,7 +48,7 @@ int main()
     int health = 3;
     int score = 0;
     // Map array
-    char map[ROWS][COLUMNS] = {
+    int map[ROWS][COLUMNS] = {
         {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}, //DO NOT WRITE TO THIS LINE IT IS OVERWRITTEN BY HEALTH/SCORE
         {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
         {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
